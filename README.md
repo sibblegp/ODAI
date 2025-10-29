@@ -8,27 +8,61 @@ Written with pride solo by George Sibble in about 60 days.
 
 - [Project Overview](#project-overview)
 - [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Local Development Setup](#local-development-setup)
-- [Running Tests](#running-tests)
-- [Deployment](#deployment)
 - [Project Structure](#project-structure)
 - [Code Organization](#code-organization)
 - [Key Features](#key-features)
 - [Security](#security)
+- [Prerequisites](#prerequisites)
+- [Local Development Setup](#local-development-setup)
+- [Running Tests](#running-tests)
+- [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Project Overview
 
-ODAI is a sophisticated AI assistant that integrates with 30+ third-party services including:
+ODAI is a production-grade AI assistant platform that pushes the boundaries of what's possible with modern AI technology. Built from the ground up in just 60 days, it demonstrates sophisticated software engineering across multiple cutting-edge domains.
+
+### Technical Highlights
+
+**Advanced Agent Architecture**
+- Implements OpenAI's latest agent framework with intelligent tool orchestration across 30+ third-party services
+- Multi-agent system with specialized orchestrators for different interaction modes (chat, voice)
+- Context-aware tool selection that dynamically routes requests to the appropriate service connector
+- Automatic conversation title generation and semantic understanding
+
+**Real-Time Streaming Infrastructure**
+- Custom WebSocket implementation enabling character-by-character AI response streaming
+- Live tool call visualization showing users exactly what the AI is doing in real-time
+- Sophisticated connection lifecycle management with automatic reconnection and state preservation
+- Bidirectional communication supporting both text and voice data streams
+
+**Next-Generation Voice Interface**
+- Full-duplex voice conversations using Twilio WebRTC integration
+- Real-time audio processing and streaming to OpenAI's speech models
+- Seamless transition between text and voice modalities within the same conversation
+- Production-ready voice call handling with sophisticated error recovery
+
+**Enterprise-Grade Security**
+- Google Cloud KMS-based encryption for all sensitive tokens and credentials
+- User-specific encryption keys ensuring data isolation
+- OAuth 2.0 flows for 15+ services with secure state management
+- Production-enforced authentication middleware with Firebase integration
+
+**Comprehensive Integration Ecosystem**
+The platform seamlessly connects with 30+ services across multiple domains:
 - **Financial Services**: Plaid (banking), Finnhub (stocks), CoinMarketCap (crypto), Alpaca (trading)
 - **Travel & Transportation**: Amadeus (flights), FlightAware, Amtrak, TripAdvisor
 - **Productivity**: Gmail, Google Calendar/Docs, Slack, Evernote, Twilio
 - **Shopping & Commerce**: Amazon, Google Shopping, Yelp, Ticketmaster
 - **Information**: Google Search/News, Weather API, Web scraping
 
-The platform supports real-time chat via WebSocket, voice interactions through Twilio, and secure OAuth-based authentication.
+**Production-Ready Engineering**
+- 700+ tests achieving 90%+ code coverage across the entire codebase
+- Parallel test execution with advanced test runner supporting multiple configurations
+- Google App Engine deployment with auto-scaling (2-20 instances)
+- Comprehensive error handling, logging, and monitoring
+- Clean layered architecture separating concerns across API, Service, Integration, and Data layers
 
 ## Architecture
 
@@ -61,6 +95,133 @@ The application follows a clean, layered architecture:
 │   (Firebase/Firestore Models)            │
 └─────────────────────────────────────────┘
 ```
+
+## Project Structure
+
+```
+backend/
+├── api.py                  # Main FastAPI application entry point
+├── requirements.txt        # Production dependencies
+├── test_requirements.txt   # Testing dependencies
+├── app.yaml               # Development deployment config
+├── prod.yaml              # Production deployment config
+├── run_tests.py           # Custom test runner
+├── CLAUDE.md              # AI assistant guidance
+│
+├── routers/               # API route handlers
+│   ├── google.py         # Google OAuth endpoints
+│   ├── plaid.py          # Financial account linking
+│   ├── twilio/           # Voice call handling
+│   └── app_voice.py      # In-app voice interactions
+│
+├── services/              # Business logic layer
+│   ├── auth_service.py   # Authentication and authorization
+│   ├── chat_service.py   # Chat management and AI integration
+│   └── location_service.py # Geolocation services
+│
+├── websocket/             # WebSocket implementation
+│   ├── connection_manager.py  # Connection lifecycle
+│   └── websocket_handler.py   # Chat interaction flow
+│
+├── firebase/              # Data models and persistence
+│   ├── models/           # Firestore document models
+│   │   ├── user.py      # User profiles and settings
+│   │   ├── chat.py      # Chat conversations
+│   │   ├── tokens.py    # OAuth token storage
+│   │   └── ...
+│   └── firebase_init.py  # Firebase initialization
+│
+├── connectors/            # Third-party integrations
+│   ├── orchestrator.py   # Main AI agent orchestrator
+│   ├── voice_orchestrator.py  # Voice-specific orchestrator
+│   ├── plaid_agent.py    # Financial services
+│   ├── gmail_agent.py    # Email integration
+│   └── ...               # 30+ other integrations
+│
+└── tests/                 # Test suite
+    ├── test_*.py         # Test files mirror source structure
+    └── conftest.py       # pytest configuration
+```
+
+## Code Organization
+
+### Design Patterns
+
+1. **Layered Architecture**: Clear separation between API, Service, Integration, and Data layers
+2. **Dependency Injection**: Services receive dependencies via constructors
+3. **Repository Pattern**: Firebase models abstract database operations
+4. **Agent-Based Architecture**: Specialized agents for different domains
+5. **Async/Await**: Consistent async patterns throughout
+
+### Key Conventions
+
+- **File Naming**: Snake_case for Python files (e.g., `auth_service.py`)
+- **Class Naming**: PascalCase for classes (e.g., `AuthService`)
+- **Function Naming**: Snake_case for functions (e.g., `validate_token()`)
+- **Test Files**: Prefix with `test_` (e.g., `test_auth_service.py`)
+- **Environment Variables**: UPPER_SNAKE_CASE (e.g., `OPENAI_API_KEY`)
+
+### Adding New Features
+
+1. **New API Endpoint**:
+   - Add router in `routers/` directory
+   - Register in `api.py` using `app.include_router()`
+
+2. **New Service**:
+   - Create service class in `services/`
+   - Initialize in `ODAPIApplication.__init__()`
+   - Add tests in `tests/test_<service_name>.py`
+
+3. **New Integration**:
+   - Create agent in `connectors/`
+   - Register in `orchestrator.py`
+   - Add required API keys to Secret Manager
+
+4. **New Data Model**:
+   - Create model in `firebase/models/`
+   - Inherit from `FireStoreObject`
+   - Implement required methods
+
+## Key Features
+
+### Authentication
+- Firebase ID token validation
+- Google OAuth 2.0 integration
+- User-specific encryption keys via Google Cloud KMS
+- Production-enforced security rules
+
+### Real-time Communication
+- WebSocket support for streaming chat
+- Character-by-character response streaming
+- Tool call visualization
+- Voice interaction via Twilio WebRTC
+
+### AI Integration
+- OpenAI gpt-4o with agents framework
+- Context-aware tool selection
+- Multi-agent orchestration
+- Automatic chat title generation
+
+### Data Security
+- All sensitive tokens encrypted at rest
+- User-specific encryption keys
+- Secure OAuth state management
+- Comprehensive audit logging
+
+## Security
+
+### Best Practices
+- Never commit secrets or API keys
+- Use Google Secret Manager for production secrets
+- Enable 2FA on all service accounts
+- Regular security audits
+- Encrypted storage for all sensitive data
+
+### Authentication Flow
+1. Client obtains Firebase ID token
+2. Token validated on each request
+3. User object loaded with permissions
+4. Request processed with user context
 
 ## Prerequisites
 
@@ -232,133 +393,6 @@ gcloud app deploy prod.yaml --version=your-version-name
 - Production logging levels
 - Higher resource allocation
 - Additional security measures
-
-## Project Structure
-
-```
-backend/
-├── api.py                  # Main FastAPI application entry point
-├── requirements.txt        # Production dependencies
-├── test_requirements.txt   # Testing dependencies
-├── app.yaml               # Development deployment config
-├── prod.yaml              # Production deployment config
-├── run_tests.py           # Custom test runner
-├── CLAUDE.md              # AI assistant guidance
-│
-├── routers/               # API route handlers
-│   ├── google.py         # Google OAuth endpoints
-│   ├── plaid.py          # Financial account linking
-│   ├── twilio/           # Voice call handling
-│   └── app_voice.py      # In-app voice interactions
-│
-├── services/              # Business logic layer
-│   ├── auth_service.py   # Authentication and authorization
-│   ├── chat_service.py   # Chat management and AI integration
-│   └── location_service.py # Geolocation services
-│
-├── websocket/             # WebSocket implementation
-│   ├── connection_manager.py  # Connection lifecycle
-│   └── websocket_handler.py   # Chat interaction flow
-│
-├── firebase/              # Data models and persistence
-│   ├── models/           # Firestore document models
-│   │   ├── user.py      # User profiles and settings
-│   │   ├── chat.py      # Chat conversations
-│   │   ├── tokens.py    # OAuth token storage
-│   │   └── ...
-│   └── firebase_init.py  # Firebase initialization
-│
-├── connectors/            # Third-party integrations
-│   ├── orchestrator.py   # Main AI agent orchestrator
-│   ├── voice_orchestrator.py  # Voice-specific orchestrator
-│   ├── plaid_agent.py    # Financial services
-│   ├── gmail_agent.py    # Email integration
-│   └── ...               # 30+ other integrations
-│
-└── tests/                 # Test suite
-    ├── test_*.py         # Test files mirror source structure
-    └── conftest.py       # pytest configuration
-```
-
-## Code Organization
-
-### Design Patterns
-
-1. **Layered Architecture**: Clear separation between API, Service, Integration, and Data layers
-2. **Dependency Injection**: Services receive dependencies via constructors
-3. **Repository Pattern**: Firebase models abstract database operations
-4. **Agent-Based Architecture**: Specialized agents for different domains
-5. **Async/Await**: Consistent async patterns throughout
-
-### Key Conventions
-
-- **File Naming**: Snake_case for Python files (e.g., `auth_service.py`)
-- **Class Naming**: PascalCase for classes (e.g., `AuthService`)
-- **Function Naming**: Snake_case for functions (e.g., `validate_token()`)
-- **Test Files**: Prefix with `test_` (e.g., `test_auth_service.py`)
-- **Environment Variables**: UPPER_SNAKE_CASE (e.g., `OPENAI_API_KEY`)
-
-### Adding New Features
-
-1. **New API Endpoint**:
-   - Add router in `routers/` directory
-   - Register in `api.py` using `app.include_router()`
-
-2. **New Service**:
-   - Create service class in `services/`
-   - Initialize in `ODAPIApplication.__init__()`
-   - Add tests in `tests/test_<service_name>.py`
-
-3. **New Integration**:
-   - Create agent in `connectors/`
-   - Register in `orchestrator.py`
-   - Add required API keys to Secret Manager
-
-4. **New Data Model**:
-   - Create model in `firebase/models/`
-   - Inherit from `FireStoreObject`
-   - Implement required methods
-
-## Key Features
-
-### Authentication
-- Firebase ID token validation
-- Google OAuth 2.0 integration
-- User-specific encryption keys via Google Cloud KMS
-- Production-enforced security rules
-
-### Real-time Communication
-- WebSocket support for streaming chat
-- Character-by-character response streaming
-- Tool call visualization
-- Voice interaction via Twilio WebRTC
-
-### AI Integration
-- OpenAI gpt-4o with agents framework
-- Context-aware tool selection
-- Multi-agent orchestration
-- Automatic chat title generation
-
-### Data Security
-- All sensitive tokens encrypted at rest
-- User-specific encryption keys
-- Secure OAuth state management
-- Comprehensive audit logging
-
-## Security
-
-### Best Practices
-- Never commit secrets or API keys
-- Use Google Secret Manager for production secrets
-- Enable 2FA on all service accounts
-- Regular security audits
-- Encrypted storage for all sensitive data
-
-### Authentication Flow
-1. Client obtains Firebase ID token
-2. Token validated on each request
-3. User object loaded with permissions
-4. Request processed with user context
 
 ## Contributing
 
