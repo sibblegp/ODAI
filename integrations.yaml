@@ -1,0 +1,222 @@
+﻿integrations:
+- description:
+    Sends, receives, searches, and manages email messages and threads in
+    your account
+  id: GMail
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fgmail.png?alt=media&token=b9e2ffae-9760-4c9d-b6ed-20bd28fa0e55
+  name: GMail
+  prompts:
+    - Search my inbox for emails from Amazon
+    - Send an email to John about our lunch plans
+    - Show me unread messages from last week
+    - Reply to the last thread with Thank you!
+- description:
+    Provides the latest headlines and current stories from reputable news
+    sources worldwide
+  id: Google News
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fgoogle_news.png?alt=media&token=2bc460fd-49ab-449f-9350-de99bdfb3b87
+  name: Google News
+  prompts:
+    - Show me the latest headlines in US politics
+    - What’s the news on Apple’s new product release?
+    - Are there any major weather events happening today?
+    - Find articles about electric vehicle trends
+- description:
+    Finds information, facts, and answers to any general question by searching
+    the web
+  id: Google Search
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fgoogle.png?alt=media&token=4f14a35f-a02c-45e0-aa05-2b2ca429a791
+  name: Google Search
+  prompts:
+    - Find me the top five tallest buildings in Boston
+    - What’s the best laptop for college students in 2025?
+    - How do you make sourdough bread at home?
+    - Find me the latest research on AI and healthcare
+- description:
+    Finds restaurants, shops, businesses, and reviews based on user ratings
+    and location
+  id: Yelp
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fyelp.png?alt=media&token=70a48a2e-eb54-4c25-b7f9-30bec7a4bb01
+  name: Yelp
+  prompts:
+    - Find the best pizza places near me
+    - Show me reviews for Flour Bakery in Cambridge, MA
+    - Any kid-friendly restaurants in downtown Boston?
+    - Best coffee shops open late in Harvard Square
+- description:
+    Discovers hotels, attractions, restaurants, and reviews for planning
+    trips or local activities
+  id: TripAdvisor
+  needs_logo: true
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Ftripadvisor.png?alt=media&token=86dcb00a-8304-4a28-ade6-f0465d42ced7
+  name: TripAdvisor
+  prompts:
+    - Search for top-rated hotels in Miami Beach
+    - Are there any must-see attractions near Niagara Falls?
+    - List Italian restaurants with outdoor seating in New York City
+    - Show me reviews for the Boston Museum of Fine Arts
+- description:
+    Connects to bank, credit, and investment accounts for balances, transactions,
+    and account information
+  id: Plaid
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fplaid.png?alt=media&token=91557e6d-1c9a-4d87-9752-4be500f15141
+  name: Plaid
+  prompts:
+    - What’s the balance of my checking account?
+    - Show me recent transactions on my savings account
+    - List all my linked bank accounts
+    - Find any large deposits in the last month
+- description:
+    Gets live cryptocurrency prices, trends, and market data for digital
+    assets
+  id: CoinMarketCap
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fcoinmarketcap.png?alt=media&token=4c763004-3ec5-4ae4-947b-e1c719050b98
+  name: CoinMarketCap
+  prompts:
+    - What’s the price of Bitcoin right now?
+    - Show me today’s change for Ethereum
+    - Check the current price of Dogecoin
+- description:
+    Shows stock market prices, company financial data, and real-time stock
+    trading information
+  id: FinnHub
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Ffinnhub.png?alt=media&token=74c33098-1c5d-46e4-beaf-94c8a01b4385
+  name: FinnHub
+  prompts:
+    - What’s the current price of Tesla stock?
+    - How did Apple stock perform today?
+    - Give me details on Apple’s Cash Flow
+- description: Manages events, appointments, and your schedule seamlessly
+  id: Google Calendar
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fgoogle_calendar.png?alt=media&token=f13d7092-35d7-4445-bfb2-e694f0485b5c
+  name: Google Calendar
+  prompts:
+    - Create a meeting for tomorrow at 9 am called ‘Team Sync’
+    - Show me my events for next week
+    - Schedule a meeting with Alex at 4pm next Tuesday on Google Meet
+    - Invite John and Alex to a meeting at 2pm called Design Workshop
+- description:
+    Searches, creates, and manages Google Docs for document collaboration
+    and storage
+  id: Google Docs
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fgoogle_docs.png?alt=media&token=c00e4822-13b6-450f-a7f9-94179d3e1541
+  name: Google Docs
+  prompts:
+    - Find all documents mentioning ‘project roadmap’
+    - Look up my document cash flow and tell me how much I spend in September
+    - Save this to Google Docs
+- description:
+    Finds, compares, and locates products across online retailers with
+    price and specification info
+  id: Google Shopping
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fgoogle_shopping.png?alt=media&token=40e843af-d90f-43d4-ba6e-19906be03a4c
+  name: Google Shopping
+  prompts:
+    - Find the best price for AirPods Pro
+    - Compare latest iPhone models and their prices
+    - Where can I buy a standing desk online?
+    - Show me running shoes under $100
+    - Save these results to Google Docs
+- description:
+    Provides live flight status, schedules, and airline information for
+    global flights and airports
+  id: FlightAware
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fflightaware.png?alt=media&token=6d724e80-ef4a-453d-a9eb-6c6faef30e64
+  name: FlightAware
+  prompts:
+    - What time does United 635 land?
+    - What is the status of JetBlue flight 567?
+    - Is United Flight 4 delayed?
+- description: Check everything about train status
+  id: Amtrak
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Famtrak.png?alt=media&token=4944dc5f-3822-4b1d-9026-f03504b4e628
+  name: Amtrak
+  needs_logo: true
+  prompts:
+    - Check the status of train 95
+- description:
+    Finds concerts, live events, and show details, including tickets and
+    venue information
+  id: Ticketmaster
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fticketmaster.png?alt=media&token=038dd89b-1cfb-43f8-94e8-1e001f5e7337
+  name: Ticketmaster
+  needs_logo: true
+  prompts:
+    - Find concerts in Boston for the next month
+    - What are the next 3 Goo Goo Dolls concerts
+    - What events are coming up at TD Garden?
+    - Are there any comedy shows this weekend nearby?
+- description:
+    Delivers current weather conditions, forecasts, and severe weather
+    alerts for any location
+  id: AccuWeather
+  needs_logo: true
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Faccuweather.png?alt=media&token=9f01e192-4009-41b8-af2f-8e36fc0dd2a5
+  name: AccuWeather
+  prompts:
+    - What’s the weather in Cambridge, MA this weekend?
+    - Will it rain in New York City tomorrow?
+    - Show me the 7-day forecast for Chicago
+    - How humid is it in Los Angeles right now?
+- description:
+    Tracks package deliveries and provides shipment status with multi-carrier
+    support
+  id: EasyPost
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Feasypost.png?alt=media&token=d63df13d-2e0a-4af6-86d2-816750ec098e
+  name: EasyPost
+  needs_logo: true
+  prompts:
+    - Track my UPS package with tracking number 1Z12345
+    - Show all my packages
+    - Is my FedEx delivery still on schedule?
+- description:
+    Lists current movie showtimes, theaters, and upcoming releases near
+    your location
+  id: MovieGlu
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fmovieglu.png?alt=media&token=cee0d4e4-0661-45cd-8b2e-43d88fe7f050
+  name: MovieGlu
+  prompts:
+    - What movies are playing tonight near me?
+    - Show me showtimes for the new Jurassic Park movie
+    - Find theaters with IMAX in Boston
+- description: Fetches the content of a website
+  id: Fetch Website
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fodai.png?alt=media&token=57d9cf65-22f2-478f-9e35-2593f5b6c97d
+  name: Fetch Website
+  needs_logo: true
+  prompts:
+    - Fetch cnn.com and summarize the latest stories
+    - Fetch OpenAI's documentation and tell me how to use the API
+    - Fetch the latest news from the New York Times
+- description: Provides flight and hotel information
+  id: AMADEUS
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Famadeus.png?alt=media&token=b7753b37-23cb-480d-b571-c93f9aaa4ec1
+  name: AMADEUS
+  prompts:
+    - Find me flights from Boston to London on July 25, 2025 returning on July 28, 2025
+    - Find me first class seats on flights from Boston to London on July 25, 2025 returning
+      on July 28, 2025
+- description: Combines multiple integrations to provide a more comprehensive response
+  id: Combinations!
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fodai.png?alt=media&token=57d9cf65-22f2-478f-9e35-2593f5b6c97d
+  name: Combinations!
+  prompts:
+    - Find my cash flow document and tell me how much I spend in September
+    - Write me an essay on Tolstoy's Anna Karenina and save it to Google Docs
+    - Find me the quarterly financials for Apple and tell me how much they spent on
+      research and development
+    - Email the quarterly financials for Apple to John
+- description: Provides flight and hotel information
+  id: Exchange Rate Agent
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fodai.png?alt=media&token=57d9cf65-22f2-478f-9e35-2593f5b6c97d
+  name: Exchange Rate Agent
+  prompts:
+    - How much is $100 in Euros?
+    - What is the exchange rate for Canadian Dollars to Euros?
+- description: Provides realtime Caltrain Train Status
+  id: Caltrain
+  logo: https://firebasestorage.googleapis.com/v0/b/odai-prod.firebasestorage.app/o/agent_logos%2Fodai.png?alt=media&token=57d9cf65-22f2-478f-9e35-2593f5b6c97d
+  name: Caltrain
+  prompts:
+    - What is the next express train leaving San Francisco?
+    - When is the next northboud Caltrain arriving at Palo Alto?

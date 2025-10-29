@@ -1,0 +1,22 @@
+# Testing framework and utilities
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.10.0
+pytest-cov>=4.0.0
+pytest-xdist>=3.0.0
+pytest-timeout>=2.1.0
+
+# Mocking and test utilities  
+mock>=4.0.3
+
+# FastAPI testing dependencies
+httpx>=0.24.0
+fastapi[all]>=0.100.0
+
+# Development and linting tools (optional)
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Coverage reporting
+coverage[toml]>=7.0.0 

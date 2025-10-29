@@ -1,0 +1,24 @@
+runtime: python
+entrypoint: gunicorn -w 4 -k uvicorn.workers.UvicornWorker api:APP
+env: flex
+
+runtime_config:
+  operating_system: ubuntu22
+  runtime_version: "3.13"
+
+automatic_scaling:
+  min_num_instances: 2
+  max_num_instances: 20
+  cool_down_period_sec: 600
+  cpu_utilization:
+    target_utilization: 0.5
+  target_concurrent_requests: 25
+
+resources:
+  cpu: 2
+  memory_gb: 4
+  disk_size_gb: 15
+
+env_variables:
+  LOCAL: "false"
+  PRODUCTION: "true"

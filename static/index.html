@@ -1,0 +1,210 @@
+<html>
+    <body>
+        <h1>ODAI Websocket Testing</h1>
+        <div id="output"></div>
+        <div id="output-html"></div>
+        <div id="output-markdown"></div>
+        <div id="suggested-prompts"></div>
+    </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
+<script>
+    const ws = new WebSocket("ws://localhost:8000/chats/000-0122kkeeeeididbdlepdlhdkekkidx?token=YOUR_TOKEN_HERE");
+    // const ws = new WebSocket("ws://localhost:8000/chats/12245aaaaaaxxxx?token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjZlODk1YzQ3YTA0YzVmNmRlMzExMmFmZjE2ODFhMzUwNzdkMWNjZDQiLCJ0eXAiOiJKV1QifQ.eyJwcm92aWRlcl9pZCI6ImFub255bW91cyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9vZGFpLWRldi01ZTRmZCIsImF1ZCI6Im9kYWktZGV2LTVlNGZkIiwiYXV0aF90aW1lIjoxNzQ5Mzg5OTQwLCJ1c2VyX2lkIjoidTZpUzQ3WW5YVGgwbm1XOGxJZ1hmWkZGZmVTMiIsInN1YiI6InU2aVM0N1luWFRoMG5tVzhsSWdYZlpGRmZlUzIiLCJpYXQiOjE3NDkzODk5NDAsImV4cCI6MTc0OTM5MzU0MCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJhbm9ueW1vdXMifX0.Dd_FPUQdC16ykgfXT9SMiGaz2wVdpNed6yAxtJ6xegyRYlS1MgxnOFFi14WGxYzYcqE4OoLT_KRW_4sBnBByAzXumY4AKXix_-tz0dsuoVYVeHSNaZ4Z8rOElqWK4Nba-BeCCa-LGkym3Iv7JKa0oLQdKZJ6QV0nZ5kctJg1mtM2xDxSPH3iZDcfJOk33eP5_OQ_F9G0Z_Eb8qHl83LElOylk9AzguIN1fejPOfm-SF_xZjiXjB0QYiDgUt2SKnEqXU6JErjlbpEvMEkUnnMFnf85CtYnHYV6Ahi06tKHPGefkX4lqKAZAcC0YOFGIFLKZZ9PShrqBQh05EjCHiBBA");
+    // const ws = new WebSocket('wss://dev.api.odai.chat/chats/kdjkeoieijeiioeidkd?&token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjZlODk1YzQ3TA0YzVmNmRlMzExMmFmZjE2ODFhMzUwNzdkMWNjZDQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb2RhaS1kZXYtNWU0ZmQiLCJhdWQiOiJvZGFpLWRldi01ZTRmZCIsImF1dGhfdGltZSI6MTc0ODc4NzQ3NCwidXNlcl9pZCI6Imx2WDJUak5OY1lZU3JvWWVKM0xwUnVVd3dXczEiLCJzdWIiOiJsdlgyVGpOTmNZWVNyb1llSjNMcFJ1VXd3V3MxIiwiaWF0IjoxNzQ4Nzg3NDc0LCJleHAiOjE3NDg3OTEwNzQsImVtYWlsIjoicm9iNTQwOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9iNTQwOEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.J-UKNLdzyQeInB7C2DDoG2eu4PFwyP69QxBmL0HIhF3z0Pv8OlaguAYoXKsxG7TfOX3SbHQCZpm-9y-utMgS4ulFBUz6Pd31rbjztM5LCmukW5DT3tDDvut8CqzdNXdbhuZ55NygjdCWmng7XZh6cf-xy_326-k3ExuARQDepsxJMK8F476cH4ltKy6mENI3Ja6rMrR5MV6VqcMkZam7iDMf-K0pPiXr10vzWcbsu_U8lSdaH21jLfRDO32SsvIxl-bweQ1AnIhZAEIxK0S_ID__evbO5y6OGZnV2bjlMW3wz9HlSGdV-MTPff37fcvH8NsmGhqrnf4wIw2m6netOg');
+    // const ws = new WebSocket("wss://dev.api.odai.com/chats/cloudflare-check-1234xxxx?token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjZlODk1YzQ3TA0YzVmNmRlMzExMmFmZjE2ODFhMzUwNzdkMWNjZDQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb2RhaS1kZXYtNWU0ZmQiLCJhdWQiOiJvZGFpLWRldi01ZTRmZCIsImF1dGhfdGltZSI6MTc0ODc4NzQ3NCwidXNlcl9pZCI6Imx2WDJUak5OY1lZU3JvWWVKM0xwUnVVd3dXczEiLCJzdWIiOiJsdlgyVGpOTmNZWVNyb1llSjNMcFJ1VXd3V3MxIiwiaWF0IjoxNzQ4Nzg3NDc0LCJleHAiOjE3NDg3OTEwNzQsImVtYWlsIjoicm9iNTQwOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9iNTQwOEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.J-UKNLdzyQeInB7C2DDoG2eu4PFwyP69QxBmL0HIhF3z0Pv8OlaguAYoXKsxG7TfOX3SbHQCZpm-9y-utMgS4ulFBUz6Pd31rbjztM5LCmukW5DT3tDDvut8CqzdNXdbhuZ55NygjdCWmng7XZh6cf-xy_326-k3ExuARQDepsxJMK8F476cH4ltKy6mENI3Ja6rMrR5MV6VqcMkZam7iDMf-K0pPiXr10vzWcbsu_U8lSdaH21jLfRDO32SsvIxl-bweQ1AnIhZAEIxK0S_ID__evbO5y6OGZnV2bjlMW3wz9HlSGdV-MTPff37fcvH8NsmGhqrnf4wIw2m6netOg");
+    let response = "";  
+    ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        switch (data.type) {
+            case "tool_call":
+                $("#output").append("Tool call: " + data.description + "<br>" +"<br>");
+                break;
+            case "tool_response":
+                $("#output").append("Tool response: " + data.tool_response + "<br>" + "<br>");
+                break;
+            case "raw_response_event":
+                $("#output-markdown").append(data.delta);
+                break;
+            case "agent_updated":
+                $("#output").append("Agent updated: " + data.new_agent + "<br>" + "<br>");
+                break;
+            case "llm_response":
+                $("#output").append("LLM response: " + data.response + "<br>" + "<br>");
+                break;
+            case "handoff":
+                $("#output").append("Handoff: " + data.name + "<br>" + "<br>");
+                break;
+            case "tool_output":
+                $("#output").append("Tool output: " + data.output + "<br>" + "<br>");
+                break;
+            case "user_prompt":
+                $("#output").append("User prompt: " + data.prompt + "<br>" + "<br>");
+                break;
+            case "end_of_stream":
+                $("#output").append("<br><br>End of stream" + "<br>" + "<br>");
+                break;
+            case "suggested_prompts":
+                prompts = data.prompts.map(prompt => `<li>${prompt.prompt} (${prompt.likelihood})</li>`).join('');
+                $("#suggested-prompts").append("<br><br><ul>" + prompts + "</ul>");
+                break;
+            default:
+                $("#output").append("Unknown event: " + data.type + "<br>" + "<br>");
+        }
+        
+        //response += event.data;
+        // $("#output").append(event.data + "<br>");
+        //$("#output-html").html(response);
+    }
+    ws.onopen = function() {
+        // ws.send("What are the top 5 asian fusion restaurants in Boston, MA?");
+        // ws.send("What scripts can I refill from walgreens?");
+        // ws.send("What quantity of Lisinopril can I refill at Walgreens?");
+        // ws.send('What are the best asian fusion restaurants in Boston, MA?');
+        // ws.send("Summarize reviews for the restaurant 'Meyers and Chang' in Boston, MA")
+        // ws.send("Please refill my Lisinopril prescription at Walgreens");
+        // ws.send("What is the availability for a table for 2 at the restaurant 'Meyers and Chang' in Boston, MA on March 25, 2025 at 7:00 PM?");
+        // ws.send("Please confirm the reservation for 2 at the restaurant 'Meyers and Chang' in Boston, MA on March 25, 2025 at 7:00 PM");
+        // ws.send("What is the price of AAPL?");
+        // ws.send('What was the low price of AAPL today?');
+        // ws.send("What is the price of BTC?");
+        // ws.send("Find me the best asian fusion restaurants near my current location")
+        // ws.send("Please summarize my email inbox")
+        // ws.send("Please summarize my email inbox")
+        // ws.send("Please reply to the email with the subject 'Next Week' with a message saying I am doing working all week.")
+        // ws.send("Please summarize my unread emails")
+        // ws.send('Compose a friendly good morning email to george@sibbleconsulting.com and send it with the subject "Good morning"')
+        // ws.send('Please compose an email to bbnuzzo@gmail.com with the subject "Tonight" and talk about how much I am looking forward to drinking Pomerol and how good Pomerol is. Talk a little about the history of Pomerol and the region it comes from.')
+        // ws.send('Please send an email to george@sibbleconsulting.com, rob@odai.chat, and alex@odai.chat with the subject "Getting There" and how you can add multiple recipients to an email!')
+        // ws.send('Please send an email to alona.birjiniuk@gmail.com with the subject "Love You" professing your love for her')
+        // ws.send('Yes please send the message')
+        // ws.send('Please send a message saying hello to george@sibbleconsulting.com and cc g@georgesibble.com and bcc gs@irdb.com')
+        // ws.send('Read me the email from Mercury')
+        // ws.send("What time does United Flight 65 arrive?")
+        // ws.send('How far away is New York City?')
+        // ws.send("Find me flights between Boston, MA and San Francisco, CA on April 1, 2024")
+        // ws.send("Find me flights between Boston, MA and San Francisco this coming Tuesday")
+        // ws.send("Find me available seats for flight B6133")
+        // ws.send("I'd like to book a seat on flight B6133")
+        //  ws.send("I'd like seat 20C")
+        // ws.send("Set my name to John Doe and my email to john.doe@example.com and my phone to +1234567890")
+        // ws.send("Book flight B6133 on March 31, 2025")
+        // ws.send("Confirm the booking details for flight B6133 on March 31, 2025")
+        // ws.send("I need to refill my prescriptions for metformin")
+        // ws.send("Make a playlist with 10 songs similar to Sigur Ros Ekki Muuk")
+        // ws.send("Add these songs to a new playlist on my Spotify account called 'Coding Quiet'")
+        // ws.send("Make a playlist with 30 similar songs to Happiness by Jonsi & Alex")
+        // ws.send("Add these songs to a new playlist on my spotify account called 'Like Happiness'")
+        // ws.send("Add the song 'Ekki Muuk' by Sigur Ros to a new Spotify playlist 'Coding Quiet 2'")
+        // ws.send("Send an email to g@georgesibble.com with the subject 'Hello' and the body 'Hello, how are you?'")
+        // ws.send("Send a Slack message to the channel '#general' with the message 'This is a message from ODAI'")
+        // ws.send("Get the 5 most recent messages from the channel '#general'")
+        // ws.send('Send a Slack message to @Rob with the message "Further testing"')
+        // ws.send("What are my bank account balances?")
+        // ws.send("What are the most recent transactions on my checking account?")
+        // ws.send("What are my calendar events?")
+        // ws.send('Fetch a summary of my calendar events and save it to a Google Doc called "Calendar Events"')
+        // ws.send("Create a calendar event for a work meeting with g@georgesibble.comon June 3, 2025 at 11:00 AM Pacific Time")
+        // ws.send("Delete the recently created calendar event")
+        // ws.send('Schedule an update meeting with alex@odai.chat and rob@odai.chat on June 3, 2025 at 11:00 AM')
+        // ws.send('Schedule an update meeting on Google Meet with alex@odai.chat on June 3, 2025 at 11:00 AM')
+        // ws.send('Schedule a work meeting Tuesday at 8:00 AM')
+        // ws.send('Create an event called "AI Generated Event Cool!" on June 3, 2025 at 11:00 AM and invite bbnuzzo@gmail.com')
+        // ws.send('Save a Google Doc called "AI Generated Event Cool!" with the content "This is a test of the Google Docs API"')
+        // ws.send('Write a summary of the Japan US engagements during World War II and save it to a Google Doc titled "Japan US Engagements during World War II"')
+        // ws.send('Search TripAdvisor forthe best restaurants in Boston, MA?')
+        // ws.send('Summarize reviews for the restaurant "Meyers and Chang" in Boston, MA from TripAdvisor')
+        // ws.send('Search for the best deals on Macbook M4 laptops')
+        // ws.send('Search Amazon for a Dyson V8 vacuum cleaner')
+        // ws.send('Get the details of the first product from the search results for "Dyson V8 vacuum cleaner"')
+        // ws.send('Open the link to the Dyson V8 cordless vacuum cleaner on Amazon')
+        // ws.send('Get the annual financials for AAPL')
+        // ws.send('Search my email for DUNS number')
+        ws.send('What are the top stories right now on google news?')
+        // ws.send('Search the web for blog articles about AGI')
+        // ws.send('What is the latest news on SpaceX? Fetch the details of the first story and summarize it for me');
+        // ws.send('Summarize google search results for "best jobs in AI"');
+        // ws.send('Fetch the details of the first story and summarize it for me')
+        // ws.send('Fetch CNN website and summarize the latest news')
+        // ws.send('Fetch the first article and summarize it for me')
+        // ws.send('Get the latest stories from Tech Crunch')
+        // ws.send("Give me a summary for the TechCrunch article about 'Meta reveals its Oakley smart glasses'")
+        // ws.send('Fetch the article on Perplexity and summarize it for me')
+        // ws.send('Fetch the entire articles content from the website')
+        // ws.send('Find my google doc about Cash Flow. Summarize my ending cash balances.')
+        // ws.send('Draft an email to george@sibbleconsulting.com with the subject "Hello" and the body "Hello, how are you?"')
+        // ws.send('What flights are currently in the air between JFK and Boston?')
+        // ws.send('What flights are between LAX and Boston today?')
+        // ws.send('Summarize the news for Donald Trump and save it to a Google Doc called "Donald Trump News"')
+        // ws.send("Summarize the quarterly financials for AAPL")
+        // ws.send('Fetch the quarterly financials for AAPL and save it to a Google Doc called "AAPL Financial Summary"')
+        // ws.send('What is the price of AAPL?')
+        // ws.send('Write the time in a note in Evernote called "Time"')
+        // ws.send('Are the Goo Goo Dolls playing in Boston, MA?')
+        // ws.send('Find tickets for the New England Patriots')
+        // ws.send('Give me details about the New England Patriots vs the Atlanta Falcons')
+        // ws.send('Show reviews for Gillette Stadium')
+        // ws.send('Get events for the venue "Gillette Stadium"')
+        // ws.send('Get upcoming dates for the Goo Goo Dolls')
+        // ws.send('Get me details about the movie "The Matrix"')
+        // ws.send('What is the weather in Boston, MA?')
+        // ws.send('What is the weather in Boston, MA for the next 5 days?')
+        // ws.send('What is the weather forcast for tonight in Boston, MA?')
+        // ws.send('Tell me if the weather is good for ice cream after a 5pm movie on Friday')
+        // ws.send('What are some attractions in Boston, MA?')
+        // ws.send('What is the status of the package with tracking number 1ZB36K350327172063?')
+        // ws.send('What is the price of TSLA?')
+        // ws.send('What are the best italian restaurants in Boston?')
+        // ws.send('Give me the 5 day forecast for Boston, MA')
+        // ws.send('What are the next 5 Goo Goo Dolls concerts?')
+        // ws.send('What films are playing in Boston?')
+        // ws.send('Get cnn.com and summarize for me')
+        // ws.send('Show me flights tomorrow from BOS to LGA?')
+        // ws.send('List my Asana projects')
+        // ws.send('What tasks do are upcoming in the Engineering project in Asana?')
+        // ws.send('What movies are playing near me?')
+        // ws.send('What is the latest status of all my packages?')
+        // ws.send('What is the status of Amtrak 2159?')
+        // ws.send('What time will Amtrak 2159 arrive in New York?')
+        // ws.send('What are my bank account balances?')
+        // ws.send('What is the balance on my Plaid Checking account?')
+        // ws.send('What are the most recent transactions on my checking account?')
+        // ws.send('Get the annual financials for AAPL')
+        // ws.send('Find me flights between Boston, MA and San Francisco, CA on April 1, 2026')
+        // ws.send('Search for the best deals on iPads')
+        // ws.send('What is the weather in Boston, MA?')
+        // ws.send('What are the flights currently in the air between LGA and Boston?')
+        // ws.send('Tell me the time. Write it to a Google Doc called "Time" and then confirm you did so.')
+        // ws.send('What is the time?')
+        // ws.send('Summarize the latest news on Donald Trump and save it to a Google Doc called "Donald Trump News"')
+        // ws.send('Please summarize my email inbox')
+        // ws.send('Find emails from g@georgesibble.com')
+        // ws.send('Search my email for "DUNS number"')
+        // ws.send('What is the weather in Boston, MA?')
+        // ws.send('Buy 100 shares of AAPL')
+        // ws.send('What is the price of AAPL?')
+        // ws.send('What is the status of flight B666?')
+        // ws.send('What are the hours of Matts El Rancho in Austin, TX?')
+        // ws.send('What is the weather in Boston, MA?')
+        // ws.send('What is the weather forecast?')
+        // ws.send('Summarize my email inbox')
+        // ws.send('Connect my Google account')
+        // ws.send('When is the next train to San Jose at 22nd street?')
+        // ws.send('When is the next southbound express Caltrain leaving San Francisco?')
+        // ws.send('What is the next express train leaving San Francisco?')
+        // ws.send('Connect my bank account')
+        // ws.send('What is the balance on my bank account?')
+        // ws.send('What is the weather Tuesday night in Boston, MA?')
+        // ws.send('What is the weather Tuesday night in Austin, TX?')
+        // ws.send('What is the status of JBU66?')
+        // ws.send('What is the status of flight UAL4?')
+        // ws.send('Make me a reservation for 2 at the restaurant "Meyers and Chang" in Boston, MA on March 25, 2025 at 7:00 PM')
+        // ws.send("Fetch the website https://www.cnn.com/2025/06/21/politics/iran-trump-conflict-decision and summarize the content")
+        // ws.send('Compose an email to george@sibbleconsulting.com with the subject "Hello" and the body "Hello, how are you?"')
+        // ws.send('Show me the exchange rates for the currency USD')
+        // ws.send('What is the exchange rate for 100 US Dollars to EUR?')
+        // ws.send('What is the status of flight LY15?')
+    }
+</script>
